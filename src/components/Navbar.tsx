@@ -10,7 +10,6 @@ import {
   Mail,
   ChevronDown,
   ChevronRight,
-  ArrowRight,
 } from "lucide-react";
 
 const navLinks = [
@@ -64,8 +63,6 @@ export default function Navbar() {
     timeoutRef.current = setTimeout(() => setActiveDropdown(null), 150);
   };
 
-  const isHome = pathname === "/";
-
   return (
     <>
       {/* Top Bar */}
@@ -97,14 +94,12 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Header */}
+      {/* Header - always visible with solid background */}
       <header
         className={`fixed w-full z-50 transition-all duration-500 ${
           scrolled
             ? "bg-white/95 backdrop-blur-xl shadow-lg shadow-black/5 border-b border-slate-100"
-            : isHome
-            ? "bg-transparent"
-            : "bg-dark/95 backdrop-blur-xl"
+            : "bg-dark/90 backdrop-blur-xl border-b border-white/5"
         }`}
         style={{ top: scrolled ? 0 : undefined }}
       >
@@ -114,9 +109,9 @@ export default function Navbar() {
             <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
               <div
                 className={`w-11 h-11 rounded-xl flex items-center justify-center font-black text-lg shadow-lg transition-all duration-300 ${
-                  scrolled || !isHome
+                  scrolled
                     ? "bg-gradient-to-br from-accent to-primary text-white group-hover:shadow-accent/30"
-                    : "bg-white/10 text-white backdrop-blur-sm group-hover:bg-white/20"
+                    : "bg-gradient-to-br from-accent to-primary text-white group-hover:shadow-accent/30"
                 }`}
               >
                 M
@@ -124,14 +119,14 @@ export default function Navbar() {
               <div className="flex flex-col">
                 <span
                   className={`text-lg font-bold tracking-tight leading-tight transition-colors ${
-                    scrolled || !isHome ? "text-dark" : "text-white"
+                    scrolled ? "text-dark" : "text-white"
                   }`}
                 >
                   MANN
                 </span>
                 <span
                   className={`text-[10px] tracking-[0.2em] uppercase leading-tight transition-colors ${
-                    scrolled || !isHome ? "text-slate-400" : "text-white/50"
+                    scrolled ? "text-slate-400" : "text-white/50"
                   }`}
                 >
                   Professional Services
@@ -157,9 +152,9 @@ export default function Navbar() {
                         className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                           isActive
                             ? "text-accent bg-accent/10"
-                            : scrolled || !isHome
+                            : scrolled
                             ? "text-slate-600 hover:text-dark hover:bg-slate-50"
-                            : "text-white/70 hover:text-white hover:bg-white/10"
+                            : "text-white/80 hover:text-white hover:bg-white/10"
                         }`}
                       >
                         {link.label}
@@ -196,10 +191,7 @@ export default function Navbar() {
                               className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold text-accent hover:bg-accent/5 transition-all duration-200"
                             >
                               View All Services
-                              <ArrowRight
-                                size={14}
-                                className="group-hover:translate-x-1 transition-transform"
-                              />
+                              <ChevronRight size={14} />
                             </Link>
                           </div>
                         </div>
@@ -215,9 +207,9 @@ export default function Navbar() {
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                       isActive
                         ? "text-accent bg-accent/10"
-                        : scrolled || !isHome
+                        : scrolled
                         ? "text-slate-600 hover:text-dark hover:bg-slate-50"
-                        : "text-white/70 hover:text-white hover:bg-white/10"
+                        : "text-white/80 hover:text-white hover:bg-white/10"
                     }`}
                   >
                     {link.label}
@@ -240,11 +232,7 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`lg:hidden p-2 rounded-lg transition-colors ${
-                scrolled || !isHome
-                  ? "text-dark hover:bg-slate-100"
-                  : "text-white hover:bg-white/10"
-              }`}
+              className="lg:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
