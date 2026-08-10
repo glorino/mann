@@ -1,33 +1,30 @@
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 import { Target, Eye, ArrowRight, Shield, Award, Users, Lightbulb } from "lucide-react";
 
 export default function AboutPage() {
   return (
     <>
-      {/* Page Hero */}
-      <section className="relative pt-40 pb-20 bg-dark overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px]" />
-        </div>
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <span className="inline-block px-4 py-1.5 bg-accent/10 text-accent text-sm font-semibold rounded-full mb-6 tracking-wide uppercase">
-            About Us
-          </span>
-          <h1 className="text-5xl md:text-6xl font-black text-white mb-6 tracking-tight">
-            The Story of <span className="gradient-text">MANN</span>
-          </h1>
-          <p className="text-lg text-white/50 max-w-2xl leading-relaxed">
-            A trusted professional services firm recognised for integrity, technical excellence, and the delivery of practical solutions.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        title="The Story of"
+        highlight="MANN"
+        description="A trusted professional services firm recognised for integrity, technical excellence, and the delivery of practical solutions."
+        breadcrumbs={[{ label: "About Us" }]}
+      />
 
       {/* Mission & Vision */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-semibold rounded-full mb-4 tracking-wide uppercase">
+              Purpose & Direction
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-dark tracking-tight">
+              Mission <span className="text-slate-300">&</span> <span className="gradient-text-blue">Vision</span>
+            </h2>
+          </div>
+
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Mission */}
             <div className="group relative bg-gradient-to-br from-slate-50 to-white rounded-3xl p-10 border border-slate-100 card-hover overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-accent-gold" />
               <div className="flex items-center gap-4 mb-6">
@@ -44,7 +41,6 @@ export default function AboutPage() {
               </p>
             </div>
 
-            {/* Vision */}
             <div className="group relative bg-gradient-to-br from-slate-50 to-white rounded-3xl p-10 border border-slate-100 card-hover overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-blue-400" />
               <div className="flex items-center gap-4 mb-6">
@@ -78,26 +74,10 @@ export default function AboutPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              {
-                icon: Shield,
-                title: "Ethical Practice",
-                desc: "We uphold the highest standards of ethical conduct in every engagement, ensuring trust and transparency with all our clients.",
-              },
-              {
-                icon: Award,
-                title: "Technical Excellence",
-                desc: "Our team applies deep knowledge, competence, and due care to deliver results that meet the most rigorous professional standards.",
-              },
-              {
-                icon: Users,
-                title: "Client-Centred",
-                desc: "We take the time to understand each client's unique needs, providing practical and responsive solutions tailored to their goals.",
-              },
-              {
-                icon: Lightbulb,
-                title: "Innovation-Driven",
-                desc: "We embrace modern technology and continuous improvement to deliver efficient, high-quality professional services.",
-              },
+              { icon: Shield, title: "Ethical Practice", desc: "We uphold the highest standards of ethical conduct in every engagement." },
+              { icon: Award, title: "Technical Excellence", desc: "Our team applies deep knowledge, competence, and due care to every task." },
+              { icon: Users, title: "Client-Centred", desc: "We take the time to understand each client's unique needs and goals." },
+              { icon: Lightbulb, title: "Innovation-Driven", desc: "We embrace modern technology and continuous improvement." },
             ].map((item) => {
               const Icon = item.icon;
               return (
@@ -122,9 +102,7 @@ export default function AboutPage() {
               <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-semibold rounded-full tracking-wide uppercase">
                 Our Approach
               </span>
-              <h2 className="text-4xl font-bold text-dark tracking-tight">
-                How We Work
-              </h2>
+              <h2 className="text-4xl font-bold text-dark tracking-tight">How We Work</h2>
               <div className="space-y-6">
                 {[
                   { step: "01", title: "Understanding", desc: "We begin by deeply understanding your business, industry, and specific requirements." },

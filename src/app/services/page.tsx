@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 import {
   BarChart3,
   Search,
@@ -12,6 +13,7 @@ import {
 
 const services = [
   {
+    id: "audit",
     icon: BarChart3,
     title: "Audit & Assurance",
     description:
@@ -26,6 +28,7 @@ const services = [
     ],
   },
   {
+    id: "accounting",
     icon: Calculator,
     title: "Accounting Services",
     description:
@@ -40,6 +43,7 @@ const services = [
     ],
   },
   {
+    id: "taxation",
     icon: Receipt,
     title: "Taxation",
     description:
@@ -54,6 +58,7 @@ const services = [
     ],
   },
   {
+    id: "advisory",
     icon: TrendingUp,
     title: "Business Advisory",
     description:
@@ -68,6 +73,7 @@ const services = [
     ],
   },
   {
+    id: "compliance",
     icon: FileCheck,
     title: "Regulatory Compliance",
     description:
@@ -82,6 +88,7 @@ const services = [
     ],
   },
   {
+    id: "due-diligence",
     icon: Search,
     title: "Due Diligence",
     description:
@@ -100,71 +107,64 @@ const services = [
 export default function ServicesPage() {
   return (
     <>
-      {/* Page Hero */}
-      <section className="relative pt-40 pb-20 bg-dark overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px]" />
-        </div>
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <span className="inline-block px-4 py-1.5 bg-accent/10 text-accent text-sm font-semibold rounded-full mb-6 tracking-wide uppercase">
-            Our Services
-          </span>
-          <h1 className="text-5xl md:text-6xl font-black text-white mb-6 tracking-tight">
-            Professional <span className="gradient-text">Services</span>
-          </h1>
-          <p className="text-lg text-white/50 max-w-2xl leading-relaxed">
-            Comprehensive solutions designed to support your business at every stage of its journey.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        title="Professional"
+        highlight="Services"
+        description="Comprehensive solutions designed to support your business at every stage of its journey."
+        breadcrumbs={[{ label: "Services" }]}
+      />
 
       {/* Services Detail */}
       <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 space-y-16">
+        <div className="max-w-7xl mx-auto px-6 space-y-20">
           {services.map((service, index) => {
             const Icon = service.icon;
             const isEven = index % 2 === 0;
             return (
               <div
-                key={service.title}
-                className={`grid lg:grid-cols-2 gap-12 items-center ${
-                  !isEven ? "lg:direction-rtl" : ""
-                }`}
+                key={service.id}
+                id={service.id}
+                className="scroll-mt-28"
               >
-                <div className={`space-y-6 ${!isEven ? "lg:order-2" : ""}`}>
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent to-primary flex items-center justify-center shadow-lg">
-                      <Icon className="w-7 h-7 text-white" />
+                <div className={`grid lg:grid-cols-2 gap-12 items-center`}>
+                  <div className={`space-y-6 ${!isEven ? "lg:order-2" : ""}`}>
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent to-primary flex items-center justify-center shadow-lg">
+                        <Icon className="w-7 h-7 text-white" />
+                      </div>
+                      <h2 className="text-3xl font-bold text-dark">{service.title}</h2>
                     </div>
-                    <h2 className="text-3xl font-bold text-dark">{service.title}</h2>
+                    <p className="text-muted text-lg leading-relaxed">
+                      {service.description}
+                    </p>
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all duration-300"
+                    >
+                      Discuss your needs <ArrowRight size={18} />
+                    </Link>
                   </div>
-                  <p className="text-muted text-lg leading-relaxed">
-                    {service.description}
-                  </p>
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all duration-300"
-                  >
-                    Discuss your needs <ArrowRight size={18} />
-                  </Link>
+
+                  <div className={`bg-gradient-to-br from-slate-50 to-white rounded-3xl p-8 border border-slate-100 ${!isEven ? "lg:order-1" : ""}`}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {service.features.map((feature) => (
+                        <div
+                          key={feature}
+                          className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-50"
+                        >
+                          <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                            <Check className="w-3.5 h-3.5 text-accent" />
+                          </div>
+                          <span className="text-sm font-medium text-dark">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <div className={`bg-gradient-to-br from-slate-50 to-white rounded-3xl p-8 border border-slate-100 ${!isEven ? "lg:order-1" : ""}`}>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {service.features.map((feature) => (
-                      <div
-                        key={feature}
-                        className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-50"
-                      >
-                        <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                          <Check className="w-3.5 h-3.5 text-accent" />
-                        </div>
-                        <span className="text-sm font-medium text-dark">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                {index < services.length - 1 && (
+                  <div className="mt-20 section-divider" />
+                )}
               </div>
             );
           })}

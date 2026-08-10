@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-dark" />
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[120px] animate-float" />

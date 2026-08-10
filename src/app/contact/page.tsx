@@ -1,29 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 import { Mail, Phone, MapPin, Send, ArrowRight, Clock, Globe } from "lucide-react";
 
 export default function ContactPage() {
   return (
     <>
-      {/* Page Hero */}
-      <section className="relative pt-40 pb-20 bg-dark overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px]" />
-        </div>
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <span className="inline-block px-4 py-1.5 bg-accent/10 text-accent text-sm font-semibold rounded-full mb-6 tracking-wide uppercase">
-            Contact Us
-          </span>
-          <h1 className="text-5xl md:text-6xl font-black text-white mb-6 tracking-tight">
-            Get in <span className="gradient-text">Touch</span>
-          </h1>
-          <p className="text-lg text-white/50 max-w-2xl leading-relaxed">
-            Ready to discuss your needs? Our team of experienced professionals is here to help.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        title="Get in"
+        highlight="Touch"
+        description="Ready to discuss your needs? Our team of experienced professionals is here to help."
+        breadcrumbs={[{ label: "Contact" }]}
+      />
 
       {/* Contact Section */}
       <section className="py-24 bg-white">
@@ -53,32 +42,17 @@ export default function ContactPage() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-dark mb-2">Full Name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      placeholder="John Doe"
-                      className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-dark placeholder:text-slate-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all"
-                    />
+                    <input type="text" name="name" required placeholder="John Doe" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-dark placeholder:text-slate-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all" />
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-dark mb-2">Email Address</label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      placeholder="john@company.com"
-                      className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-dark placeholder:text-slate-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all"
-                    />
+                    <input type="email" name="email" required placeholder="john@company.com" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-dark placeholder:text-slate-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all" />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-dark mb-2">Subject</label>
-                  <select
-                    name="subject"
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-dark focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all"
-                  >
+                  <select name="subject" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-dark focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all">
                     <option value="General Inquiry">General Inquiry</option>
                     <option value="Audit & Assurance">Audit & Assurance</option>
                     <option value="Taxation">Taxation</option>
@@ -90,19 +64,10 @@ export default function ContactPage() {
 
                 <div>
                   <label className="block text-sm font-semibold text-dark mb-2">Message</label>
-                  <textarea
-                    name="message"
-                    rows={5}
-                    required
-                    placeholder="Tell us about your needs..."
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-dark placeholder:text-slate-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all resize-none"
-                  />
+                  <textarea name="message" rows={5} required placeholder="Tell us about your needs..." className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-dark placeholder:text-slate-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all resize-none" />
                 </div>
 
-                <button
-                  type="submit"
-                  className="btn-primary inline-flex items-center gap-2 text-base w-full justify-center"
-                >
+                <button type="submit" className="btn-primary inline-flex items-center gap-2 text-base w-full justify-center">
                   <Send size={18} />
                   Send Message
                 </button>
@@ -175,18 +140,12 @@ export default function ContactPage() {
               <div className="bg-gradient-to-br from-slate-50 to-white rounded-3xl p-8 border border-slate-100">
                 <h3 className="text-lg font-bold text-dark mb-4">Our Services</h3>
                 <div className="grid grid-cols-2 gap-3">
-                  {["Audit & Assurance", "Taxation", "Accounting", "Advisory", "Compliance", "Due Diligence"].map(
-                    (service) => (
-                      <Link
-                        key={service}
-                        href="/services"
-                        className="flex items-center gap-2 p-3 rounded-xl bg-white border border-slate-50 text-sm font-medium text-dark hover:text-accent hover:border-accent/20 transition-all duration-300 group"
-                      >
-                        <ArrowRight className="w-3.5 h-3.5 text-accent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        {service}
-                      </Link>
-                    )
-                  )}
+                  {["Audit & Assurance", "Taxation", "Accounting", "Advisory", "Compliance", "Due Diligence"].map((service) => (
+                    <Link key={service} href="/services" className="flex items-center gap-2 p-3 rounded-xl bg-white border border-slate-50 text-sm font-medium text-dark hover:text-accent hover:border-accent/20 transition-all duration-300 group">
+                      <ArrowRight className="w-3.5 h-3.5 text-accent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      {service}
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>

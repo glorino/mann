@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 import {
   Plane,
   GraduationCap,
@@ -9,41 +10,11 @@ import {
 } from "lucide-react";
 
 const clients = [
-  {
-    name: "Finchglow Travels Limited",
-    icon: Plane,
-    industry: "Travel & Tourism",
-    description: "Leading travel and tourism company providing exceptional travel experiences across Nigeria and beyond.",
-    color: "from-blue-500 to-cyan-400",
-  },
-  {
-    name: "Finchglow Holidays Limited",
-    icon: Briefcase,
-    industry: "Hospitality & Leisure",
-    description: "Premium holiday and leisure services, creating memorable experiences for individuals and families.",
-    color: "from-emerald-500 to-teal-400",
-  },
-  {
-    name: "Southoak Aviation Services Limited",
-    icon: Plane,
-    industry: "Aviation Services",
-    description: "Professional aviation services company delivering reliable solutions for the aviation industry.",
-    color: "from-violet-500 to-purple-400",
-  },
-  {
-    name: "Lagos Aviation Academy Limited",
-    icon: GraduationCap,
-    industry: "Aviation Training",
-    description: "Premier aviation training institution shaping the next generation of aviation professionals.",
-    color: "from-amber-500 to-orange-400",
-  },
-  {
-    name: "Prysm Facility Services Limited",
-    icon: Wrench,
-    industry: "Facility Management",
-    description: "Comprehensive facility management solutions ensuring optimal operational environments.",
-    color: "from-rose-500 to-pink-400",
-  },
+  { name: "Finchglow Travels Limited", icon: Plane, industry: "Travel & Tourism", description: "Leading travel and tourism company providing exceptional travel experiences across Nigeria and beyond.", color: "from-blue-500 to-cyan-400" },
+  { name: "Finchglow Holidays Limited", icon: Briefcase, industry: "Hospitality & Leisure", description: "Premium holiday and leisure services, creating memorable experiences for individuals and families.", color: "from-emerald-500 to-teal-400" },
+  { name: "Southoak Aviation Services Limited", icon: Plane, industry: "Aviation Services", description: "Professional aviation services company delivering reliable solutions for the aviation industry.", color: "from-violet-500 to-purple-400" },
+  { name: "Lagos Aviation Academy Limited", icon: GraduationCap, industry: "Aviation Training", description: "Premier aviation training institution shaping the next generation of aviation professionals.", color: "from-amber-500 to-orange-400" },
+  { name: "Prysm Facility Services Limited", icon: Wrench, industry: "Facility Management", description: "Comprehensive facility management solutions ensuring optimal operational environments.", color: "from-rose-500 to-pink-400" },
 ];
 
 const stats = [
@@ -56,25 +27,12 @@ const stats = [
 export default function ClientsPage() {
   return (
     <>
-      {/* Page Hero */}
-      <section className="relative pt-40 pb-20 bg-dark overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px]" />
-        </div>
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <span className="inline-block px-4 py-1.5 bg-accent/10 text-accent text-sm font-semibold rounded-full mb-6 tracking-wide uppercase">
-            Trusted Partners
-          </span>
-          <h1 className="text-5xl md:text-6xl font-black text-white mb-6 tracking-tight">
-            Our <span className="gradient-text">Clients</span>
-          </h1>
-          <p className="text-lg text-white/50 max-w-2xl leading-relaxed">
-            We are proud to serve leading organisations across diverse industries,
-            delivering trusted professional services that drive growth.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        title="Our"
+        highlight="Clients"
+        description="We are proud to serve leading organisations across diverse industries, delivering trusted professional services that drive growth."
+        breadcrumbs={[{ label: "Clients" }]}
+      />
 
       {/* Stats */}
       <section className="py-16 bg-dark-800">
@@ -97,28 +55,17 @@ export default function ClientsPage() {
             {clients.map((client) => {
               const Icon = client.icon;
               return (
-                <div
-                  key={client.name}
-                  className="group bg-white rounded-3xl p-8 border border-slate-100 card-hover"
-                >
+                <div key={client.name} className="group bg-white rounded-3xl p-8 border border-slate-100 card-hover">
                   <div className="flex items-start gap-5 mb-6">
-                    <div
-                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${client.color} flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}
-                    >
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${client.color} flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
                       <Icon className="w-8 h-8 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-dark group-hover:text-accent transition-colors duration-300">
-                        {client.name}
-                      </h3>
-                      <span className="text-sm text-muted font-medium">
-                        {client.industry}
-                      </span>
+                      <h3 className="text-lg font-bold text-dark group-hover:text-accent transition-colors duration-300">{client.name}</h3>
+                      <span className="text-sm text-muted font-medium">{client.industry}</span>
                     </div>
                   </div>
-                  <p className="text-muted text-sm leading-relaxed">
-                    {client.description}
-                  </p>
+                  <p className="text-muted text-sm leading-relaxed">{client.description}</p>
                 </div>
               );
             })}
