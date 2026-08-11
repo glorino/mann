@@ -102,6 +102,8 @@ export default function Navbar() {
                       className={`flex items-center gap-1 px-3 py-2 rounded-lg text-[13px] font-semibold transition-all duration-200 ${
                         isActive
                           ? "text-[#e94560]"
+                          : scrolled
+                          ? "text-slate-600 hover:text-[#e94560] hover:bg-[#e94560]/5"
                           : "text-white/80 hover:text-white hover:bg-white/10"
                       }`}
                     >
@@ -153,6 +155,8 @@ export default function Navbar() {
                   className={`px-3 py-2 rounded-lg text-[13px] font-semibold transition-all duration-200 ${
                     isActive
                       ? "text-[#e94560]"
+                      : scrolled
+                      ? "text-slate-600 hover:text-[#e94560] hover:bg-[#e94560]/5"
                       : "text-white/80 hover:text-white hover:bg-white/10"
                   }`}
                 >
@@ -176,7 +180,9 @@ export default function Navbar() {
           {/* Mobile Toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors"
+            className={`lg:hidden p-2 rounded-lg transition-colors ${
+              scrolled ? "text-slate-600 hover:bg-slate-100" : "text-white hover:bg-white/10"
+            }`}
             aria-label="Toggle menu"
           >
             {isOpen ? <X size={22} /> : <Menu size={22} />}

@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { Mail, Phone, MapPin, ArrowUp } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowUp, CheckCircle, AlertCircle } from "lucide-react";
 import { CONTACT } from "@/lib/constants";
 
 const footerLinks = {
@@ -23,6 +24,33 @@ const footerLinks = {
 };
 
 export default function Footer() {
+  const [nlEmail, setNlEmail] = useState("");
+  const [nlStatus, setNlStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [nlMessage, setNlMessage] = useState("");
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setNlStatus("loading");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: nlEmail }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setNlStatus("success");
+        setNlMessage(data.message);
+        setNlEmail("");
+      } else {
+        setNlStatus("error");
+        setNlMessage(data.error || "Failed to subscribe");
+      }
+    } catch {
+      setNlStatus("error");
+      setNlMessage("Something went wrong");
+    }
+  };
   return (
     <footer className="bg-dark-800 pt-20 pb-8">
       <div className="max-w-7xl mx-auto px-6">
@@ -89,19 +117,33 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-6">Stay Updated</h4>
             <p className="text-white/40 text-sm mb-4">Subscribe to our newsletter for insights and updates.</p>
-            <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-3" onSubmit={handleSubscribe}>
               <input
                 type="email"
+                value={nlEmail}
+                onChange={(e) => setNlEmail(e.target.value)}
+                required
                 placeholder="Your email"
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/30 text-sm focus:outline-none focus:border-accent transition-colors"
               />
               <button
                 type="submit"
-                className="w-full px-4 py-3 bg-gradient-to-r from-accent to-primary text-white font-semibold rounded-xl text-sm hover:shadow-lg hover:shadow-accent/20 transition-all duration-300"
+                disabled={nlStatus === "loading"}
+                className="w-full px-4 py-3 bg-gradient-to-r from-accent to-primary text-white font-semibold rounded-xl text-sm hover:shadow-lg hover:shadow-accent/20 transition-all duration-300 disabled:opacity-60"
               >
-                Subscribe
+                {nlStatus === "loading" ? "Subscribing..." : "Subscribe"}
               </button>
             </form>
+            {nlStatus === "success" && (
+              <div className="flex items-center gap-2 mt-3 text-green-400 text-xs">
+                <CheckCircle size={14} /> {nlMessage}
+              </div>
+            )}
+            {nlStatus === "error" && (
+              <div className="flex items-center gap-2 mt-3 text-red-400 text-xs">
+                <AlertCircle size={14} /> {nlMessage}
+              </div>
+            )}
           </div>
         </div>
 
