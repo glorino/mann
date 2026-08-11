@@ -144,7 +144,6 @@ export default function ContactPage() {
                     <div>
                       <h4 className="font-semibold mb-1">Phone</h4>
                       <p className="text-white/50 text-sm">{CONTACT.phone}</p>
-                      <p className="text-white/50 text-sm">{CONTACT.phone2}</p>
                     </div>
                   </div>
 
@@ -155,7 +154,6 @@ export default function ContactPage() {
                     <div>
                       <h4 className="font-semibold mb-1">Email</h4>
                       <p className="text-white/50 text-sm">{CONTACT.email}</p>
-                      <p className="text-white/50 text-sm">{CONTACT.emailAudit}</p>
                     </div>
                   </div>
 
