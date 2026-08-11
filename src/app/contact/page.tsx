@@ -1,10 +1,43 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
-import { Mail, Phone, MapPin, Send, ArrowRight, Clock, Globe } from "lucide-react";
+import { Mail, Phone, MapPin, Send, ArrowRight, Clock, Globe, CheckCircle, AlertCircle } from "lucide-react";
 
 export default function ContactPage() {
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("loading");
+
+    const form = e.target as HTMLFormElement;
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.get("name"),
+          email: data.get("email"),
+          phone: data.get("phone"),
+          subject: data.get("subject"),
+          message: data.get("message"),
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to send");
+
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("error");
+      setErrorMessage("Something went wrong. Please try again or email us directly.");
+    }
+  };
   return (
     <>
       <PageHeader
@@ -27,17 +60,7 @@ export default function ContactPage() {
 
               <form
                 className="space-y-6"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const form = e.target as HTMLFormElement;
-                  const data = new FormData(form);
-                  const name = data.get("name");
-                  const email = data.get("email");
-                  const subject = data.get("subject");
-                  const message = data.get("message");
-                  const body = `Name: ${name}%0AEmail: ${email}%0ASubject: ${subject}%0AMessage: ${message}`;
-                  window.open(`mailto:info@mannprofessional.com?subject=${encodeURIComponent(subject as string)}&body=${body}`, "_blank");
-                }}
+                onSubmit={handleSubmit}
               >
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
@@ -50,16 +73,22 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-semibold text-dark mb-2">Subject</label>
-                  <select name="subject" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-dark focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all">
-                    <option value="General Inquiry">General Inquiry</option>
-                    <option value="Audit & Assurance">Audit & Assurance</option>
-                    <option value="Taxation">Taxation</option>
-                    <option value="Accounting Services">Accounting Services</option>
-                    <option value="Business Advisory">Business Advisory</option>
-                    <option value="Partnership">Partnership Opportunity</option>
-                  </select>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-dark mb-2">Phone Number</label>
+                    <input type="tel" name="phone" placeholder="+234 800 000 0000" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-dark placeholder:text-slate-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-dark mb-2">Subject</label>
+                    <select name="subject" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-dark focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all">
+                      <option value="General Inquiry">General Inquiry</option>
+                      <option value="Audit & Assurance">Audit & Assurance</option>
+                      <option value="Taxation">Taxation</option>
+                      <option value="Accounting Services">Accounting Services</option>
+                      <option value="Business Advisory">Business Advisory</option>
+                      <option value="Partnership">Partnership Opportunity</option>
+                    </select>
+                  </div>
                 </div>
 
                 <div>
@@ -67,9 +96,36 @@ export default function ContactPage() {
                   <textarea name="message" rows={5} required placeholder="Tell us about your needs..." className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-dark placeholder:text-slate-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all resize-none" />
                 </div>
 
-                <button type="submit" className="btn-primary inline-flex items-center gap-2 text-base w-full justify-center">
-                  <Send size={18} />
-                  Send Message
+                {status === "success" && (
+                  <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm">
+                    <CheckCircle size={20} />
+                    <span>Thank you! Your message has been sent successfully. We&apos;ll get back to you within 24 hours.</span>
+                  </div>
+                )}
+
+                {status === "error" && (
+                  <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+                    <AlertCircle size={20} />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="btn-primary inline-flex items-center gap-2 text-base w-full justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {status === "loading" ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      Send Message
+                    </>
+                  )}
                 </button>
               </form>
             </div>
