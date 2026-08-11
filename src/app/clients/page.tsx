@@ -1,20 +1,39 @@
 import Link from "next/link";
+import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
-import {
-  Plane,
-  GraduationCap,
-  Wrench,
-  Briefcase,
-  ArrowRight,
-  TrendingUp,
-} from "lucide-react";
+import { ArrowRight, TrendingUp } from "lucide-react";
 
 const clients = [
-  { name: "Finchglow Travels Limited", icon: Plane, industry: "Travel & Tourism", description: "Leading travel and tourism company providing exceptional travel experiences across Nigeria and beyond.", color: "from-blue-500 to-cyan-400" },
-  { name: "Finchglow Holidays Limited", icon: Briefcase, industry: "Hospitality & Leisure", description: "Premium holiday and leisure services, creating memorable experiences for individuals and families.", color: "from-emerald-500 to-teal-400" },
-  { name: "Southoak Aviation Services Limited", icon: Plane, industry: "Aviation Services", description: "Professional aviation services company delivering reliable solutions for the aviation industry.", color: "from-violet-500 to-purple-400" },
-  { name: "Lagos Aviation Academy Limited", icon: GraduationCap, industry: "Aviation Training", description: "Premier aviation training institution shaping the next generation of aviation professionals.", color: "from-amber-500 to-orange-400" },
-  { name: "Prysm Facility Services Limited", icon: Wrench, industry: "Facility Management", description: "Comprehensive facility management solutions ensuring optimal operational environments.", color: "from-rose-500 to-pink-400" },
+  {
+    name: "Finchglow Travels Limited",
+    logo: "/clients/finchglow-travels.jpg",
+    industry: "Travel & Tourism",
+    description: "Leading travel and tourism company providing exceptional travel experiences across Nigeria and beyond.",
+  },
+  {
+    name: "Finchglow Holidays Limited",
+    logo: "/clients/finchglow-holidays.jpg",
+    industry: "Hospitality & Leisure",
+    description: "Premium holiday and leisure services, creating memorable experiences for individuals and families.",
+  },
+  {
+    name: "Southoak Aviation Services Limited",
+    logo: "/clients/southoak-aviation.png",
+    industry: "Aviation Services",
+    description: "Professional aviation services company delivering reliable solutions for the aviation industry.",
+  },
+  {
+    name: "Lagos Aviation Academy Limited",
+    logo: "/clients/lagos-aviation-academy.png",
+    industry: "Aviation Training",
+    description: "Premier aviation training institution shaping the next generation of aviation professionals.",
+  },
+  {
+    name: "Prysm Facility Services Limited",
+    logo: "/clients/prysm-facility.jpg",
+    industry: "Facility Management",
+    description: "Comprehensive facility management solutions ensuring optimal operational environments.",
+  },
 ];
 
 const stats = [
@@ -52,23 +71,33 @@ export default function ClientsPage() {
       <section className="py-24 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {clients.map((client) => {
-              const Icon = client.icon;
-              return (
-                <div key={client.name} className="group bg-white rounded-3xl p-8 border border-slate-100 card-hover">
-                  <div className="flex items-start gap-5 mb-6">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${client.color} flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
-                      <Icon className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-dark group-hover:text-accent transition-colors duration-300">{client.name}</h3>
-                      <span className="text-sm text-muted font-medium">{client.industry}</span>
-                    </div>
-                  </div>
-                  <p className="text-muted text-sm leading-relaxed">{client.description}</p>
+            {clients.map((client) => (
+              <div
+                key={client.name}
+                className="group bg-white rounded-3xl p-8 border border-slate-100 card-hover flex flex-col items-center text-center"
+              >
+                {/* Logo */}
+                <div className="w-40 h-24 relative mb-6 flex items-center justify-center bg-white rounded-xl border border-slate-100 p-3 group-hover:shadow-lg transition-shadow duration-300">
+                  <Image
+                    src={client.logo}
+                    alt={client.name}
+                    fill
+                    className="object-contain"
+                    sizes="160px"
+                  />
                 </div>
-              );
-            })}
+
+                <h3 className="text-lg font-bold text-dark group-hover:text-accent transition-colors duration-300 mb-1">
+                  {client.name}
+                </h3>
+                <span className="text-sm text-muted font-medium mb-3">
+                  {client.industry}
+                </span>
+                <p className="text-muted text-sm leading-relaxed">
+                  {client.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
