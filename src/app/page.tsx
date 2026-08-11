@@ -1,5 +1,6 @@
 import Link from "next/link";
 import RotatingText from "@/components/RotatingText";
+import { CONTACT } from "@/lib/constants";
 import {
   ArrowRight,
   Shield,
@@ -76,8 +77,8 @@ export default function Home() {
               </div>
 
               <div className="flex flex-wrap gap-6 pt-6 animate-fade-in-left delay-400">
-                <a href="tel:+2348000000000" className="flex items-center gap-2 text-white/40 hover:text-accent transition-colors text-sm">
-                  <Phone size={14} /> +234 (0) 800 MANN PRO
+                <a href={`tel:${CONTACT.phoneRaw}`} className="flex items-center gap-2 text-white/40 hover:text-accent transition-colors text-sm">
+                  <Phone size={14} /> {CONTACT.phone}
                 </a>
               </div>
             </div>

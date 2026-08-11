@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Mail, Phone, MapPin, ArrowUp } from "lucide-react";
+import { CONTACT } from "@/lib/constants";
 
 const footerLinks = {
   services: [
@@ -41,17 +42,17 @@ export default function Footer() {
               Accurate, ethical, and professional accounting, auditing, taxation, and consultancy services.
             </p>
             <div className="space-y-3">
-              <a href="tel:+2348000000000" className="flex items-center gap-2 text-white/40 hover:text-accent transition-colors text-sm">
+              <a href={`tel:${CONTACT.phoneRaw}`} className="flex items-center gap-2 text-white/40 hover:text-accent transition-colors text-sm">
                 <Phone size={14} />
-                +234 (0) 800 MANN PRO
+                {CONTACT.phone}
               </a>
-              <a href="mailto:info@mannprofessional.com" className="flex items-center gap-2 text-white/40 hover:text-accent transition-colors text-sm">
+              <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-2 text-white/40 hover:text-accent transition-colors text-sm">
                 <Mail size={14} />
-                info@mannprofessional.com
+                {CONTACT.email}
               </a>
               <div className="flex items-center gap-2 text-white/40 text-sm">
                 <MapPin size={14} />
-                Lagos & Abuja, Nigeria
+                {CONTACT.address} & {CONTACT.address2}
               </div>
             </div>
           </div>

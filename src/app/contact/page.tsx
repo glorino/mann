@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
+import { CONTACT } from "@/lib/constants";
 import { Mail, Phone, MapPin, Send, ArrowRight, Clock, Globe, CheckCircle, AlertCircle } from "lucide-react";
 
 export default function ContactPage() {
@@ -142,8 +143,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">Phone</h4>
-                      <p className="text-white/50 text-sm">+234 (0) 800 MANN PRO</p>
-                      <p className="text-white/50 text-sm">+234 (0) 801 234 5678</p>
+                      <p className="text-white/50 text-sm">{CONTACT.phone}</p>
+                      <p className="text-white/50 text-sm">{CONTACT.phone2}</p>
                     </div>
                   </div>
 
@@ -153,8 +154,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">Email</h4>
-                      <p className="text-white/50 text-sm">info@mannprofessional.com</p>
-                      <p className="text-white/50 text-sm">audit@mannprofessional.com</p>
+                      <p className="text-white/50 text-sm">{CONTACT.email}</p>
+                      <p className="text-white/50 text-sm">{CONTACT.emailAudit}</p>
                     </div>
                   </div>
 
@@ -164,8 +165,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">Offices</h4>
-                      <p className="text-white/50 text-sm">Lagos, Nigeria</p>
-                      <p className="text-white/50 text-sm">Abuja, Nigeria</p>
+                      <p className="text-white/50 text-sm">{CONTACT.address}</p>
+                      <p className="text-white/50 text-sm">{CONTACT.address2}</p>
                     </div>
                   </div>
 
@@ -186,7 +187,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">Website</h4>
-                      <p className="text-white/50 text-sm">www.mannprofessional.com</p>
+                      <p className="text-white/50 text-sm">{CONTACT.website}</p>
                     </div>
                   </div>
                 </div>

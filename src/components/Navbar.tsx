@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, Mail, ChevronDown, ChevronRight } from "lucide-react";
+import { CONTACT } from "@/lib/constants";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -241,11 +242,11 @@ export default function Navbar() {
           </div>
 
           <div className="pt-3 space-y-2">
-            <a href="tel:+2348000000000" className="flex items-center gap-2 px-3 py-2 text-sm text-slate-500 hover:text-[#e94560] transition-colors">
-              <Phone size={14} /> +234 (0) 800 MANN PRO
+            <a href={`tel:${CONTACT.phoneRaw}`} className="flex items-center gap-2 px-3 py-2 text-sm text-slate-500 hover:text-[#e94560] transition-colors">
+              <Phone size={14} /> {CONTACT.phone}
             </a>
-            <a href="mailto:info@mannprofessional.com" className="flex items-center gap-2 px-3 py-2 text-sm text-slate-500 hover:text-[#e94560] transition-colors">
-              <Mail size={14} /> info@mannprofessional.com
+            <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-2 px-3 py-2 text-sm text-slate-500 hover:text-[#e94560] transition-colors">
+              <Mail size={14} /> {CONTACT.email}
             </a>
           </div>
         </div>
