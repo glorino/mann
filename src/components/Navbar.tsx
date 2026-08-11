@@ -58,12 +58,14 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b border-white/10 ${
         scrolled
-          ? "bg-white shadow-lg shadow-black/5"
-          : "bg-[#0d1117]"
+          ? "bg-white shadow-xl shadow-black/10 border-b-slate-200"
+          : "bg-[#0f172a]"
       }`}
     >
+      {/* Red accent strip at very top */}
+      <div className="h-[3px] bg-gradient-to-r from-[#e94560] via-[#c8a951] to-[#0f3460]" />
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-16 lg:h-[72px]">
           {/* Logo */}
