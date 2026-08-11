@@ -1,4 +1,5 @@
 import Link from "next/link";
+import RotatingText from "@/components/RotatingText";
 import {
   ArrowRight,
   Shield,
@@ -45,7 +46,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-32 w-full">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-32 w-full">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
               <span className="inline-block px-4 py-1.5 bg-accent/10 text-accent text-sm font-semibold rounded-full border border-accent/20 tracking-wide animate-fade-in-left">
@@ -55,7 +56,7 @@ export default function Home() {
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight animate-fade-in-left delay-100">
                 Trusted
                 <br />
-                <span className="gradient-text">Financial</span>
+                <RotatingText />
                 <br />
                 Excellence
               </h1>
