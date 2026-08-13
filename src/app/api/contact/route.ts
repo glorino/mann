@@ -124,8 +124,10 @@ export async function POST(request: NextRequest) {
       `,
     };
 
-    await transporter.sendMail(notificationMail);
-    await transporter.sendMail(acknowledgementMail);
+    await Promise.allSettled([
+      transporter.sendMail(notificationMail),
+      transporter.sendMail(acknowledgementMail),
+    ]);
 
     return NextResponse.json(
       { message: "Email sent successfully" },
