@@ -1,6 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+async function sendWithRetry(transporter: nodemailer.Transporter, mail: nodemailer.SendMailOptions, retries = 3, delay = 2000) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      await transporter.sendMail(mail);
+      return true;
+    } catch (err) {
+      console.error(`Email attempt ${attempt}/${retries} failed:`, (err as Error).message);
+      if (attempt < retries) {
+        await new Promise((r) => setTimeout(r, delay * attempt));
+      }
+    }
+  }
+  return false;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -21,12 +36,10 @@ export async function POST(request: NextRequest) {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
-      connectionTimeout: 15000,
-      greetingTimeout: 10000,
-      socketTimeout: 15000,
+      connectionTimeout: 20000,
+      greetingTimeout: 15000,
+      socketTimeout: 20000,
     });
-
-    await transporter.verify();
 
     const notificationMail = {
       from: `"MANN Professional Services" <${process.env.SMTP_USER}>`,
@@ -129,22 +142,23 @@ export async function POST(request: NextRequest) {
       `,
     };
 
-    const results = await Promise.allSettled([
-      transporter.sendMail(notificationMail),
-      transporter.sendMail(acknowledgementMail),
+    const [notifResult, ackResult] = await Promise.allSettled([
+      sendWithRetry(transporter, notificationMail),
+      sendWithRetry(transporter, acknowledgementMail),
     ]);
 
-    const allFailed = results.every((r) => r.status === "rejected");
-    if (allFailed) {
-      console.error("Both emails failed:", results);
+    const notifOk = notifResult.status === "fulfilled" && notifResult.value;
+    const ackOk = ackResult.status === "fulfilled" && ackResult.value;
+
+    if (!notifOk && !ackOk) {
       return NextResponse.json(
-        { error: "Failed to send email" },
+        { error: "Failed to send email. Please try again later." },
         { status: 500 }
       );
     }
 
     return NextResponse.json(
-      { message: "Email sent successfully" },
+      { message: ackOk ? "Email sent successfully" : "Message received. We'll get back to you shortly." },
       { status: 200 }
     );
   } catch (error) {
