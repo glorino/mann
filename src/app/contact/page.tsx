@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import { CONTACT } from "@/lib/constants";
-import { Mail, Phone, MapPin, Send, ArrowRight, Clock, Globe, CheckCircle, AlertCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Send, ArrowRight, Clock, CheckCircle, AlertCircle } from "lucide-react";
 
 export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -143,7 +143,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">Phone</h4>
-                      <p className="text-white/50 text-sm">{CONTACT.phone}</p>
+                      <a href={`tel:${CONTACT.phoneRaw}`} className="text-white/50 text-sm hover:text-accent transition-colors">{CONTACT.phone}</a>
                     </div>
                   </div>
 
@@ -153,7 +153,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">Email</h4>
-                      <p className="text-white/50 text-sm">{CONTACT.email}</p>
+                      <a href={`mailto:${CONTACT.email}`} className="text-white/50 text-sm hover:text-accent transition-colors">{CONTACT.email}</a>
                     </div>
                   </div>
 
@@ -176,16 +176,6 @@ export default function ContactPage() {
                       <h4 className="font-semibold mb-1">Working Hours</h4>
                       <p className="text-white/50 text-sm">Mon - Fri: 8:00 AM - 5:00 PM</p>
                       <p className="text-white/50 text-sm">Sat: 9:00 AM - 1:00 PM</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
-                      <Globe className="w-6 h-6 text-accent" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-1">Website</h4>
-                      <p className="text-white/50 text-sm">{CONTACT.website}</p>
                     </div>
                   </div>
                 </div>
