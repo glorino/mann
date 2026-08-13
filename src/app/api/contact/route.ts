@@ -21,7 +21,12 @@ export async function POST(request: NextRequest) {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
+      connectionTimeout: 15000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
     });
+
+    await transporter.verify();
 
     const notificationMail = {
       from: `"MANN Professional Services" <${process.env.SMTP_USER}>`,
@@ -124,10 +129,19 @@ export async function POST(request: NextRequest) {
       `,
     };
 
-    await Promise.allSettled([
+    const results = await Promise.allSettled([
       transporter.sendMail(notificationMail),
       transporter.sendMail(acknowledgementMail),
     ]);
+
+    const allFailed = results.every((r) => r.status === "rejected");
+    if (allFailed) {
+      console.error("Both emails failed:", results);
+      return NextResponse.json(
+        { error: "Failed to send email" },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json(
       { message: "Email sent successfully" },
