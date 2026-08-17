@@ -37,7 +37,7 @@ const clients = [
 ];
 
 const stats = [
-  { value: "5+", label: "Major Clients" },
+  { value: "50+", label: "Major Clients" },
   { value: "10+", label: "Years Experience" },
   { value: "100%", label: "Commitment" },
   { value: "24/7", label: "Support" },

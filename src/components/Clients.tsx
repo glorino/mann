@@ -98,7 +98,7 @@ export default function Clients() {
         {/* Stats */}
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
-            { value: "5+", label: "Major Clients" },
+            { value: "50+", label: "Major Clients" },
             { value: "10+", label: "Years Experience" },
             { value: "100%", label: "Commitment" },
             { value: "24/7", label: "Support" },
